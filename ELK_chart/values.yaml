@@ -1,0 +1,42 @@
+# Elasticsearch configuration
+elasticsearch:
+  replicaCount: 1
+  image:
+    repository: docker.elastic.co/elasticsearch/elasticsearch
+    tag: 7.16.0
+  resources:
+    limits:
+      memory: 2Gi
+      cpu: 1
+    requests:
+      memory: 1Gi
+      cpu: 0.5
+  heapSize: 512m
+
+# Logstash configuration
+logstash:
+  replicaCount: 1
+  image:
+    repository: docker.elastic.co/logstash/logstash
+    tag: 7.16.0
+  resources:
+    limits:
+      memory: 1Gi
+      cpu: 0.5
+    requests:
+      memory: 512Mi
+      cpu: 0.25
+
+# Kibana configuration
+kibana:
+  replicaCount: 1
+  image:
+    repository: docker.elastic.co/kibana/kibana
+    tag: 7.16.0
+  resources:
+    limits:
+      memory: 1Gi
+      cpu: 0.5
+    requests:
+      memory: 512Mi
+      cpu: 0.25

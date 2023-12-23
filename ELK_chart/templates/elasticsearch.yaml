@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-elasticsearch
+  labels:
+    app: elasticsearch
+spec:
+  replicas: {{ .Values.elasticsearch.replicaCount }}
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: {{ .Values.elasticsearch.image.repository }}:{{ .Values.elasticsearch.image.tag }}
+          resources:
+            limits:
+              memory: {{ .Values.elasticsearch.resources.limits.memory }}
+              cpu: {{ .Values.elasticsearch.resources.limits.cpu }}
+            requests:
+              memory: {{ .Values.elasticsearch.resources.requests.memory }}
+              cpu: {{ .Values.elasticsearch.resources.requests.cpu }}
+          env:
+            - name: ES_JAVA_OPTS
+              value: "-Xms{{ .Values.elasticsearch.heapSize }} -Xmx{{ .Values.elasticsearch.heapSize }}"
+          ports:
+            - containerPort: 9200
+              name: http
+            - containerPort: 9300
+              name: transport

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-kibana
+  labels:
+    app: kibana
+spec:
+  replicas: {{ .Values.kibana.replicaCount }}
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          image: {{ .Values.kibana.image.repository }}:{{ .Values.kibana.image.tag }}
+          resources:
+            limits:
+              memory: {{ .Values.kibana.resources.limits.memory }}
+              cpu: {{ .Values.kibana.resources.limits.cpu }}
+            requests:
+              memory: {{ .Values.kibana.resources.requests.memory }}
+              cpu: {{ .Values.kibana.resources.requests.cpu }}
+          ports:
+            - containerPort: 5601
+              name: http

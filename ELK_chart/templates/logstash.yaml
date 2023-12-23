@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-logstash
+  labels:
+    app: logstash
+spec:
+  replicas: {{ .Values.logstash.replicaCount }}
+  selector:
+    matchLabels:
+      app: logstash
+  template:
+    metadata:
+      labels:
+        app: logstash
+    spec:
+      containers:
+        - name: logstash
+          image: {{ .Values.logstash.image.repository }}:{{ .Values.logstash.image.tag }}
+          resources:
+            limits:
+              memory: {{ .Values.logstash.resources.limits.memory }}
+              cpu: {{ .Values.logstash.resources.limits.cpu }}
+            requests:
+              memory: {{ .Values.logstash.resources.requests.memory }}
+              cpu: {{ .Values.logstash.resources.requests.cpu }}
+          ports:
+            - containerPort: 5000
+              name: tcp
