@@ -1,0 +1,13 @@
+# nginx-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-nginx
+spec:
+  selector:
+    app: {{ template "nginx-chart.name" . }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: 80
+  type: {{ .Values.service.type }}
