@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git # Змініть на URL вашого репозиторію
     targetRevision: HEAD
-    path: cluster2/application # Шлях до вашого Helm-чарту у репозиторії
+    path: cluster2/applications # Шлях до вашого Helm-чарту у репозиторії
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
