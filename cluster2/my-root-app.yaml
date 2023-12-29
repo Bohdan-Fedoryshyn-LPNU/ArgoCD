@@ -1,15 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
   name: my-app
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argproj.io
 spec:
+  project: default
   destination:
-    name: my-app
+    server: https://kubernetes.default.svc
     namespace: my-app
   source:
     repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git
-    path: "dev/applications"
+    path: "cluster2/applications"
     targetRevision: HEAD
