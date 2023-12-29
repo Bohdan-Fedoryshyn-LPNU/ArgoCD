@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: my-appset
+spec:
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git # Змініть на URL вашого репозиторію
+        targetRevision: HEAD
+        path: Helm/nginx-chart # Шлях до вашого Helm-чарту у репозиторії
+        helm:
+          valueFiles:
+            - values.yaml # Шлях до файлу values.yaml, якщо ви хочете налаштувати значення
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
