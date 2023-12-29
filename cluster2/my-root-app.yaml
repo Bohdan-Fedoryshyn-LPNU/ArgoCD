@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
-  name: my-app
+  name: root-application
 spec:
-  generators:
-    - clusters: {}
-  template:
-    metadata:
-      name: 'cluster2-my-app'
-    spec:
-      project: default
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: argocd
-      source:
-        repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git
-        path: "cluster2/applications"
-        targetRevision: HEAD
+  project: default
+  source:
+    repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git # Змініть на URL вашого репозиторію
+    targetRevision: HEAD
+    path: cluster2/application # Шлях до вашого Helm-чарту у репозиторії
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

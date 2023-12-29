@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 'cluster2-my-app'
+  name: cluster2-my-app
 spec:
   project: default
   source:
