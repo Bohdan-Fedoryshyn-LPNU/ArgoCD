@@ -1,0 +1,29 @@
+global:
+# Global configurations (e.g., SMTP settings, Slack token, etc.)
+
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'default-receiver'
+  # Define child routes
+  routes:
+    - match:
+        alertname: HighMemoryUsage
+      receiver: 'memory-webhook-receiver'
+    - match:
+        alertname: HighCpuUsage
+      receiver: 'cpu-webhook-receiver'
+
+receivers:
+  - name: 'default-receiver'
+    # Other receiver configurations...
+  - name: 'memory-webhook-receiver'
+    webhook_configs:
+      - url: 'http://localhost:7777/overhead'
+        send_resolved: true
+  - name: 'cpu-webhook-receiver'
+    webhook_configs:
+      - url: 'http://localhost:7777/overhead'
+        send_resolved: true

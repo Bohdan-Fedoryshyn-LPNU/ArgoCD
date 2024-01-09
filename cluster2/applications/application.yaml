@@ -5,13 +5,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git # Змініть на URL вашого репозиторію
+    repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git
     targetRevision: HEAD
-    path: Helm/nginx-chart # Шлях до вашого Helm-чарту у репозиторії
+    path: Helm/nginx-chart
     helm:
       valueFiles:
-        - values.yaml # Шлях до файлу values.yaml, якщо ви хочете налаштувати значення
-  destination:
+        - values.yaml
     server: https://kubernetes.default.svc
     namespace: nginx
   syncPolicy:
@@ -20,3 +19,7 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
+
+
+

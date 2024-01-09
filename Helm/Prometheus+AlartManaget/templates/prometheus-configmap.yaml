@@ -1,0 +1,10 @@
+# templates/prometheus-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.prometheusConfigMap.name }}
+data:
+  prometheus.yml: |-
+{{ .Files.Get "files/prometheus.yml" | indent 4 }}
+  prometheus-rule1.yml: |-
+{{ .Files.Get "files/prometheus-rule1.yml" | indent 4 }}
