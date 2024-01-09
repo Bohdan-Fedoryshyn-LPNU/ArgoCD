@@ -5,9 +5,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git # Змініть на URL вашого репозиторію
+    repoURL: https://github.com/Bohdan-Fedoryshyn-LPNU/ArgoCD.git
     targetRevision: HEAD
-    path: cluster2/applications # Шлях до вашого Helm-чарту у репозиторії
+    path: cluster2/applications
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
@@ -17,3 +17,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+        
