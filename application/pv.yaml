@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  capacity:
+    storage: 1Gi  # Define the storage capacity
+  accessModes:
+    - ReadWriteOnce  # This can be ReadWriteOnce, ReadOnlyMany, or ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain  # Can be Retain, Recycle, or Delete
+  storageClassName: standard  # Storage Class; use "manual" for no dynamic provisioning
+  hostPath:
+    path: /data  # Path to the directory on the host

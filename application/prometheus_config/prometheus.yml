@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s  # Встановлює стандартний інтервал збору метрик.
+
+scrape_configs:
+  - job_name: 'flask_webserver'
+    static_configs:
+      - targets: ['webserver:5000']  # Адреса і порт вашого Flask сервера з метриками Prometheus.
