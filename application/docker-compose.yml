@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  webserver:
+    build: ./webserver
+    ports:
+      - "5000:5000"
+      - "8000:8000"
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus_config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - webserver
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Set a default admin password (change as needed)
+      - GF_USERS_ALLOW_SIGN_UP=false

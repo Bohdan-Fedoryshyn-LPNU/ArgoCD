@@ -24,9 +24,17 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: node
 
+
+  - job_name: 'flask-app'
+    static_configs:
+      - targets: ['flask-app-service.default.svc.cluster.local:80']
+    metrics_path: '/metrics'
+
+
   - job_name: 'kubernetes-pods'
     kubernetes_sd_configs:
       - role: pod
+
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.

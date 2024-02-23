@@ -1,0 +1,1 @@
+Grana functons documentation - https://prometheus.io/docs/prometheus/latest/querying/functions/
