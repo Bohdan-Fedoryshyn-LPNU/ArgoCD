@@ -1,0 +1,20 @@
+# values.yaml
+defaultNamespace: default
+customNamespace: cluster1
+
+only_necessary: false
+
+prometheus:
+  alertmanager:
+    enabled: false
+  configmapReload:
+    replicaCount: 1
+  nodeExporter:
+    enabled: false
+  pushgateway:
+    enabled: false
+  server:
+    replicaCount: 1
+
+nginx:
+  replicaCount: 1
