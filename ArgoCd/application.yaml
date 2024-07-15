@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: my-chart-1
-  namespace: argocd
+  namespace: cluster1
 spec:
   project: default
   source:
