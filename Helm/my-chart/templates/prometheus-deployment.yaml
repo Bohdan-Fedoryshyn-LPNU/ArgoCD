@@ -1,3 +1,4 @@
+{{- if .Values.deployPrometheus }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -39,3 +40,4 @@ spec:
             name: {{ include "prometheus.fullname" . }}
         - name: storage-volume
           emptyDir: {}
+  {{- end }}

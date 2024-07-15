@@ -3,6 +3,7 @@ defaultNamespace: default
 customNamespace: cluster2
 
 only_necessary: true
+deployPrometheus: false
 
 prometheus:
   alertmanager:

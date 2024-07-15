@@ -2,6 +2,7 @@
 defaultNamespace: default
 customNamespace: default
 only_necessary: true
+deployPrometheus: true
 
 prometheus:
   alertmanager:
