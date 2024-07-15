@@ -4,7 +4,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: my-chart-2
-  namespace: cluster1
+  namespace: argocd
 spec:
   project: default
   source:
@@ -16,7 +16,7 @@ spec:
         - cluster2_values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: cluster2
   syncPolicy:
     automated:
       prune: true
