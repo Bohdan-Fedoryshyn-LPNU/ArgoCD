@@ -40,4 +40,4 @@ spec:
             name: {{ include "prometheus.fullname" . }}
         - name: storage-volume
           emptyDir: {}
-  {{- end }}
+{{- end }}
