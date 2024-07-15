@@ -1,0 +1,24 @@
+{{- if not .Values.only_necessary }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-application
+  namespace: {{ .Values.customNamespace }}
+  labels:
+    app: user-application
+spec:
+  replicas: {{ .Values.userApplication.replicaCount }}
+  selector:
+    matchLabels:
+      app: user-application
+  template:
+    metadata:
+      labels:
+        app: user-application
+    spec:
+      containers:
+        - name: user-application
+          image: "{{ .Values.userApplication.image.repository }}:{{ .Values.userApplication.image.tag }}"
+          ports:
+            - containerPort: 5000
+{{- end }}

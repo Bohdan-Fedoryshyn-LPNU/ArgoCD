@@ -48,20 +48,24 @@ def get_ARMA():
     print(forecast)
 
     return forecast
+def reset_values(path, parametr):
 
-def alarm(cluster_name):
+        # Завантажте вміст values.yaml
+        with open(path, 'r') as file:
+            values_data = yaml.safe_load(file)
+
+        # Змініть параметр only_necessary
+        values_data['only_necessary'] = True  # або False в залежності від вашого випадку
+
+        # Запишіть змінений вміст назад у файл
+        with open(path, 'w') as file:
+            yaml.dump(values_data, file)
+
+def alarm(clusters_status):
     print("ALARM!!!")
+    ### надіслати alart
 
-    # Завантажте вміст values.yaml
-    with open('path/to/your/values.yaml', 'r') as file:
-        values_data = yaml.safe_load(file)
 
-    # Змініть параметр only_necessary
-    values_data['only_necessary'] = True  # або False в залежності від вашого випадку
-
-    # Запишіть змінений вміст назад у файл
-    with open('path/to/your/values.yaml', 'w') as file:
-        yaml.dump(values_data, file)
 
 def check_status(cluster_name):
     forecast = get_ARMA()
@@ -74,8 +78,34 @@ def check_status(cluster_name):
     print("forecast_quantile: ", forecast_quantile)
 
     if forecast_quantile > global_average_threshold * percent_of_permissible_limit:
-            alarm()
+            return True
+    else:
+        return False
 
 while True:
-    check_status()
+    f = open('clusters.json')
+    clusters_status = json.load(f)
+    updated_clusters_status = {}
+
+    for el in clusters_status:
+        updated_clusters_status[el] = check_status(el)
+
+    if updated_clusters_status != clusters_status:
+        cluster_available_exists = False
+
+        for el in clusters_status:
+            if clusters_status[el]:
+                cluster_available_exists = True
+
+        if cluster_available_exists == False:
+            alarm()
+
+
+
+        # Оновлюємо параметр розгортання клієнтського застосунку на всіх кластерах
+        for el in clusters_status:
+            reset_values(f'Helm/my-chart/{el}_values.yaml',clusters_status[el])
+        clusters_status = updated_clusters_status
+        updated_clusters_status = {}
+
     time.sleep(900)

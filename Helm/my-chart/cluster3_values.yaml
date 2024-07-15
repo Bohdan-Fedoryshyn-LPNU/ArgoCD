@@ -1,0 +1,33 @@
+# values.yaml
+defaultNamespace: default
+customNamespace: cluster3
+
+only_necessary: true
+deployPrometheus: false
+
+prometheus:
+  alertmanager:
+    enabled: false
+  configmapReload:
+    replicaCount: 1
+  nodeExporter:
+    enabled: false
+  pushgateway:
+    enabled: false
+  server:
+    replicaCount: 1
+  prometheusSpec:
+    additionalScrapeConfigs:
+      - job_name: 'user-application'
+        scrape_interval: 30s
+        metrics_path: /metrics
+        static_configs:
+          - targets: [ 'svc/user-application:5000' ]
+
+userApplication:
+  replicaCount: 3
+  image:
+    repository: brunoauditore/my-flask-app
+    tag: v2
+  service:
+    port: 5000
