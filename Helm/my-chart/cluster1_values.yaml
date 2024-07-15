@@ -15,6 +15,20 @@ prometheus:
     enabled: false
   server:
     replicaCount: 1
+  prometheusSpec:
+    additionalScrapeConfigsSecret: prometheus-additional-scrape-configs
+    additionalScrapeConfigs:
+      - job_name: 'user-application'
+        scrape_interval: 30s
+        metrics_path: /metrics
+        static_configs:
+          - targets: [ 'svc/user-application:5000' ]
 
-nginx:
-  replicaCount: 1
+
+userApplication:
+  replicaCount: 3
+  image:
+    repository: brunoauditore/my-flask-app
+    tag: v2
+  service:
+    port: 5000
