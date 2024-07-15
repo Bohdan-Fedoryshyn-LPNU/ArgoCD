@@ -1,7 +1,9 @@
+application:
+  yaml:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-chart-1
+  name: my-chart-2
   namespace: argocd
 spec:
   project: default
@@ -11,7 +13,7 @@ spec:
     path: Helm/my-chart
     helm:
       valueFiles:
-        - cluster1_values.yaml
+        - cluster2_values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
