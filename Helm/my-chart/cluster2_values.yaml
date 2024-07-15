@@ -2,7 +2,7 @@
 defaultNamespace: default
 customNamespace: cluster2
 
-only_necessary: true
+only_necessary: false
 deployPrometheus: false
 
 
