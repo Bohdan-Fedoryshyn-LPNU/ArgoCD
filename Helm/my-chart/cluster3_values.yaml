@@ -2,7 +2,7 @@
 defaultNamespace: default
 customNamespace: cluster3
 
-only_necessary: true
+only_necessary: false
 deployPrometheus: false
 
 userApplication:
