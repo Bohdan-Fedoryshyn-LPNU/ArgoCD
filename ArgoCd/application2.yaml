@@ -5,6 +5,8 @@ kind: Application
 metadata:
   name: my-chart-2
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=true
 spec:
   project: default
   source:
