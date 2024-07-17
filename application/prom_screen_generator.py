@@ -20,6 +20,10 @@ initial_growth = logistic_growth(time)
 cpu_cluster2 = np.where(time < 40, initial_growth, logistic_growth(time - 40) + 10)
 memory_cluster2 = np.where(time < 40, initial_growth, logistic_growth(time - 40) + 10)
 
+# After time mark 80, decrease the load
+cpu_cluster2 = np.concatenate((cpu_cluster2[:80], np.linspace(cpu_cluster2[79], 10, 20)))
+memory_cluster2 = np.concatenate((memory_cluster2[:80], np.linspace(memory_cluster2[79], 10, 20)))
+
 # Add some noise to make it more realistic
 cpu_cluster2 += np.random.normal(0, 2, 100)
 memory_cluster2 += np.random.normal(0, 2, 100)
@@ -47,6 +51,7 @@ df = pd.DataFrame({
     'Memory Cluster 3': memory_cluster3
 })
 
+df.to_csv('cluster_metrics_2.csv', index=False)
 # Plotting the data
 plt.figure(figsize=(14, 7))
 
