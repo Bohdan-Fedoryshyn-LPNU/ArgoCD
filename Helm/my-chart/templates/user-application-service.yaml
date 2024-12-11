@@ -1,0 +1,15 @@
+{{- if not .Values.only_necessary }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-application
+  namespace: {{ .Values.customNamespace }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: user-application
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+{{- end }}

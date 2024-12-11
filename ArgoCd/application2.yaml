@@ -1,0 +1,25 @@
+application:
+  yaml:
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-chart-2
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=true
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/brunoauditore/ArgoCD/
+    targetRevision: master
+    path: Helm/my-chart
+    helm:
+      valueFiles:
+        - cluster2_values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cluster2
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

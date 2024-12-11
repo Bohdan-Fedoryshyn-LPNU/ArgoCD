@@ -1,0 +1,15 @@
+# values.yaml
+defaultNamespace: default
+customNamespace: cluster2
+
+only_necessary: true
+deployPrometheus: false
+
+
+userApplication:
+  replicaCount: 3
+  image:
+    repository: brunoauditore/my-flask-app
+    tag: v2
+  service:
+    port: 5000
